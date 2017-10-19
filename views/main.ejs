@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.2.0/js/bootstrap.min.js">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script>
+    var minutes
+    var seconds
+
+    function counterDownTimer(countTimer) {
+        countTimer = countTimer - 1000
+
+        minutes = (countTimer/1000/60) << 0
+        seconds = ((countTimer/1000) % 60) + 1
+
+        document.getElementById("counterDown").innerHTML = 'Countdown Time: ' + minutes + 'min(s) and ' + seconds + 'sec'
+    }
+
+    function initialCountDownTimer(isStarted) {
+
+        if (isStarted) {
+          document.getElementById("PostStatus").style.visibility = "visible"
+          if (minutes == 0) {
+            document.getElementById("Posting").style.visibility = "collapse"
+            document.getElementById("Counting").style.visibility = "visible"
+            setInterval(counterDownTimer(30 * 60 * 1000), 1000)
+          }
+          else {
+            document.getElementById("Posting").style.visibility = "visible"
+            document.getElementById("Counting").style.visibility = "collapse"
+          }
+
+        }
+        else {
+          document.getElementById("PostStatus").style.visibility = "hidden"
+        }
+
+    }
+    </script>
+  </head>
+  <body onload="<%= isTimerStart %>">
+    <form method="post" action="/" style="padding-left: 50px;padding-right: 100px;">
+      <h1>TOTOMARKET</h1>
+      <h6>Advertising Promotion</h6>
+
+      <div class="form-group">
+        <label>Title:</label>
+        <input type="text" class="form-control" name="postTitle" placeholder="Enter title" value="<%= postTitle %>">
+      </div>
+
+      <div class="form-group">
+        <label>Site name:</label>
+        <input type="text" class="form-control" name="websiteName" placeholder="Enter site name" value="<%= websiteName %>">
+      </div>
+
+      <div class="form-group">
+        <label>Site address:</label>
+        <input type="text" class="form-control" name="websiteAddress" placeholder="Enter site address" value="<%= websiteAddress %>">
+      </div>
+
+      <div class="form-group">
+        <label>Message:</label>
+        <textarea class="form-control" name="postMessages" placeholder="Enter message" rows="10"><%= postMessages %></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="attachmentFile">Attachment: </label>
+        <input type="file" class="form-control-file" name="attachmentFile" aria-describedby="attachmentFile" value="<%= attachmentFile %>">
+      </div>
+
+      <button type="submit" id="btnStart" name="register" di class="btn btn-primary" <%= isStartDisabled %>><%= btnStartContent %></button>
+      <button type="submit" id="btnStop" name="stop" class="btn btn-danger" <%= isStopDisabled %>>Stop</button>
+
+      <br/>
+
+      <div id="PostStatus">
+        <div id="Posting">
+          <p>Posting...</p>
+        </div>
+        <div id="Counting">
+          <br/>
+          <p>Waiting for 30 minutes to post...</p>
+          <p id="counterDown">Countdown Time: </p>
+        </div>
+      </div>
+    </form>
+  </body>
+</html>

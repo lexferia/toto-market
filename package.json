@@ -1,0 +1,18 @@
+{
+  "name": "totomarket",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "dependencies": {
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
+    "nightmare": "^2.10.0",
+    "nightmare-upload": "^0.1.1",
+    "socket.io": "^2.0.3"
+  },
+  "author": "",
+  "license": "ISC"
+}
